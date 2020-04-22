@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SizedBox(
         height: 30,
         child: Container(
-          padding: EdgeInsets.only(left: 5),
+          padding: EdgeInsets.only(left: 13),
           alignment: Alignment.centerLeft,
           child: Text(
             title,
@@ -70,56 +70,69 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SingleChildScrollView(
                   child: Container(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: Column(
                         children: <Widget>[
                           _buildSubHeaderLine('Pending'),
                           _buildManageExpenses(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          _buildNotifications(),
                           _buildSubHeaderLine('In Process'),
-                          Row(
-                            children: <Widget>[
-                              _buildInProcessCardView('Title', Colors.blueGrey,
-                                  Icon(Icons.monetization_on)),
-                              _buildInProcessCardView('Title', Colors.blueGrey,
-                                  Icon(Icons.monetization_on)),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Row(
+                              children: <Widget>[
+                                _buildInProcessCardView('Drafts', Colors.grey,
+                                    Icon(Icons.monetization_on)),
+                                _buildInProcessCardView('Pending on A-Team',
+                                    Colors.orange, Icon(Icons.monetization_on)),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: <Widget>[
-                              _buildInProcessCardView('Title', Colors.blueGrey,
-                                  Icon(Icons.monetization_on)),
-                              _buildInProcessCardView('Title', Colors.blueGrey,
-                                  Icon(Icons.monetization_on)),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Row(
+                              children: <Widget>[
+                                _buildInProcessCardView('Pending on Manager',
+                                    Colors.orange, Icon(Icons.monetization_on)),
+                                _buildInProcessCardView('Validated by Manager',
+                                    Colors.green, Icon(Icons.monetization_on)),
+                              ],
+                            ),
                           ),
                           _buildSubHeaderLine('Treated'),
-                          Row(
-                            children: <Widget>[
-                              _buildTreatedCardView(
-                                  Icon(
-                                    Icons.payment,
-                                    size: 45,
-                                    color: Colors.grey,
-                                  ),
-                                  'Pending on Payment'),
-                              _buildTreatedCardView(
-                                  Icon(
-                                    Icons.block,
-                                    size: 45,
-                                    color: Colors.grey,
-                                  ),
-                                  'Refused'),
-                              _buildTreatedCardView(
-                                  Icon(
-                                    Icons.monetization_on,
-                                    size: 45,
-                                    color: Colors.grey,
-                                  ),
-                                  'Paid and Closed'),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Row(
+                              children: <Widget>[
+                                _buildTreatedCardView(
+                                    Icon(
+                                      Icons.payment,
+                                      size: 45,
+                                      color: Colors.grey,
+                                    ),
+                                    'Pending on Payment'),
+                                _buildTreatedCardView(
+                                    Icon(
+                                      Icons.block,
+                                      size: 45,
+                                      color: Colors.grey,
+                                    ),
+                                    'Refused'),
+                                _buildTreatedCardView(
+                                    Icon(
+                                      Icons.monetization_on,
+                                      size: 45,
+                                      color: Colors.grey,
+                                    ),
+                                    'Paid and Closed'),
+                              ],
+                            ),
                           ),
                           _buildSubHeaderLine('Policy'),
                           _buildPolicyCardView(),
@@ -208,11 +221,52 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Container(
-          height: 80,
+          height: 85,
+          padding: EdgeInsets.only(left: 5, bottom: 5, top: 5),
           child: Column(
             children: <Widget>[
               SizedBox(
                 height: 55,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.assignment,
+                      size: 33,
+                      color: color,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'VND',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: color,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '100 K',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  color: color,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(left: 15),
@@ -220,6 +274,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 1,
                 color: Colors.grey[200],
               ),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                height: 14,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '0',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey),
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -230,35 +314,38 @@ class _MyHomePageState extends State<MyHomePage> {
   _buildPolicyCardView() {
     return SizedBox(
       height: 60,
-      child: Card(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: <Widget>[
-              Icon(
-                Icons.security,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Container(
-                width: 1,
-                height: 30,
-                color: Colors.grey[200],
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                'Read the latest Expenses Policy',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-              )
-            ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Card(
+          elevation: 3.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.security,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  width: 1,
+                  height: 30,
+                  color: Colors.grey[200],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Read the latest Expenses Policy',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -273,17 +360,78 @@ class _MyHomePageState extends State<MyHomePage> {
           // This next line does the trick.
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            Container(
-              width: cardWidth,
-              child: Card(
-                elevation: 3.0,
-              ),
+            SizedBox(
+              width: 8,
             ),
             Container(
               width: cardWidth,
               child: Card(
                 elevation: 3.0,
               ),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Container(
+              width: cardWidth,
+              child: Card(
+                elevation: 3.0,
+              ),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+          ],
+        ));
+  }
+
+  _buildNotifications() {
+    final cardWidth = MediaQuery.of(context).size.width * 0.618;
+    return Container(
+        height: 60,
+        padding: EdgeInsets.only(top: 5, bottom: 5),
+        child: ListView(
+          // This next line does the trick.
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            SizedBox(
+              width: 8,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [Colors.red, Colors.orange])),
+                width: 150,
+                child: Row()),
+            SizedBox(
+              width: 15,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [Colors.green, Colors.lightGreen])),
+                width: cardWidth,
+                child: Row()),
+            SizedBox(
+              width: 15,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [Colors.orange[600], Colors.orangeAccent])),
+                width: cardWidth,
+                child: Row()),
+            SizedBox(
+              width: 8,
             ),
           ],
         ));
